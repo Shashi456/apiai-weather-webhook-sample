@@ -36,7 +36,7 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast" or req.get("result").get("action") != "HotelSearch" :
+    if req.get("result").get("action") != "yahooWeatherForecast" : #or req.get("result").get("action") != "HotelSearch" :
         return {}
    
     if req.get("result").get("action") == "yahooWeatherForecast"  :
@@ -48,17 +48,17 @@ def processRequest(req):
         result = urlopen(yql_url).read()
         data = json.loads(result)
         res = makeWebhookResult(data)
-    if req.get("result").get("action") == "HotelSearch"  :   
-        speech= "https://www.alpharooms.com/guide/spain/barcelona/default.aspx?channel=AlphaRoomsUK"
-        
-        print("Response:")
-        print(speech)
-        res = {
-        "speech": speech,
-        "displayText": speech,
+#   if req.get("result").get("action") == "HotelSearch"  :   
+#        speech= "https://www.alpharooms.com/guide/spain/barcelona/default.aspx?channel=AlphaRoomsUK"
+#        
+#        print("Response:")
+#        print(speech)
+#        res = {
+#        "speech": speech,
+#        "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"  }
+#        "source": "apiai-weather-webhook-sample"  }
     return res
 
 
