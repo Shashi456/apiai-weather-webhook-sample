@@ -50,6 +50,9 @@ def processRequest(req):
         res = makeWebhookResult(data)
     if req.get("result").get("action") == "HotelSearch"  :   
         speech= "https://www.alpharooms.com/guide/spain/barcelona/default.aspx?channel=AlphaRoomsUK"
+        
+        print("Response:")
+        print(speech)
         res = {
         "speech": speech,
         "displayText": speech,
