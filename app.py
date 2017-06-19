@@ -36,7 +36,7 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast" : #or req.get("result").get("action") != "HotelSearch" :
+    if req.get("result").get("action") != "yahooWeatherForecast" or req.get("result").get("action") != "HotelSearch" :
         return {}
    
     if req.get("result").get("action") == "yahooWeatherForecast"  :
@@ -48,14 +48,7 @@ def processRequest(req):
         result = urlopen(yql_url).read()
         data = json.loads(result)
         res = makeWebhookResult(data)
-   if req.get("result").get("action") == "HotelSearch"  :   
-      #  baseurl = "https://query.yahooapis.com/v1/public/yql?"
-      #  yql_query = makeYqlQuery(req)
-       # if yql_query is None:
-        #    return {}
-       # yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-       # result = urlopen(yql_url).read()
-        #data = json.loads(result)
+    if req.get("result").get("action") == "HotelSearch"  :   
         res = makeWebhookResult1(data)
     return res
 
