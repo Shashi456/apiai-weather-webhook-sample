@@ -48,8 +48,8 @@ def processRequest(req):
         result = urlopen(yql_url).read()
         data = json.loads(result)
         res = makeWebhookResult(data)
-    if req.get("result").get("action") == "HotelSearch"  :   
-        res = makeWebhookResult1(data)
+  #  if req.get("result").get("action") == "HotelSearch"  :   
+ #       res = makeWebhookResult1(data)
     return res
 
 
@@ -102,7 +102,7 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
-def makeWebhookResult1(data):
+"""def makeWebhookResult1(data):
     query = data.get('query')
     if query is None:
        # return {}
@@ -138,7 +138,7 @@ def makeWebhookResult1(data):
         # "data": data,
         # "contextOut": [],
         "source": "alpharooms"
-    }
+    }"""
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
