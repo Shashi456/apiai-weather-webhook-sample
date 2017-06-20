@@ -38,53 +38,30 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "HotelSearch":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
-    data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
-
-
-def makeYqlQuery(req):
-    result = req.get("result")
+  
+    re = req.get("result")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-
-
-def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
-        return {}
-
-    result = query.get('results')
-    if result is None:
-        return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
+    city=parameters.get("geo-city")
+    if city is none : 
+        return{}
+    city.lower()
+    res=makeWebhookresult(city)
+    return res
+ 
+ def makeWebhookResult(city):
+    
+    place={"barcelona"="guide/spain/barcelona/" ,
+    "paris"="guide/france/paris"
+    }
+    
+    main="https://www.alpharooms.com/"
+    search=place[city]
+    end="default.aspx?channel=AlphaRoomsUK"
 
     # print(json.dumps(item, indent=4))
 
-    speech = "https://www.alpharooms.com/guide/spain/barcelona/default.aspx?channel=AlphaRoomsUK"
+    speech = main+search+end
+    speech=str(speech)
 
     print("Response:")
     print(speech)
@@ -94,9 +71,8 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "HotelSearch Sample"
     }
-
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
