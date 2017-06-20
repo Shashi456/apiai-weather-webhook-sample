@@ -38,10 +38,10 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "HotelSearch":
         return {}
-  
     re = req.get("result")
     parameters = result.get("parameters")
     city=parameters.get("geo-city")
+    city=str(city)
     if city is none : 
         return{}
     city.lower()
