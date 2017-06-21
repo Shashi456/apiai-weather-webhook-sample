@@ -120,7 +120,7 @@ def makeWebhookResult(req):
     place = {"barcelona":"guide/spain/barcelona/" , "paris":"guide/france/paris"}
     
     main = "https://www.alpharooms.com/"
-    search = str(place[city])
+    search = place[city]
     end = "default.aspx?channel=AlphaRoomsUK"
 
     speech = main + search + end
