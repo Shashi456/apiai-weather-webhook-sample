@@ -116,7 +116,7 @@ def makeWebhookResult(req):
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
-    
+    city.lower()
     place = {"barcelona":"guide/spain/barcelona/" , "paris":"guide/france/paris"}
     
     main = "https://www.alpharooms.com/"
